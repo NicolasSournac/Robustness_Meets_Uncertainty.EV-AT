@@ -43,6 +43,7 @@ Simply run the following commands in the root directory of the project:
 python3 -m venv .venv
 source .venv/bin/activate
 uv sync
+mkdir -p data/
 ```
 
 ## :rocket: Getting Started

@@ -5,7 +5,6 @@ out/
 !src/ev_at/core/data
 !src/ev_at/data
 logs/
-jobs/
 output/
 multirun/
 figures/
