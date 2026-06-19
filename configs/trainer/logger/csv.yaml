@@ -1,0 +1,4 @@
+csv_logger:
+  _target_: lightning.pytorch.loggers.CSVLogger
+  name: ${step}_lightning_logs
+  save_dir: ${output_dir}

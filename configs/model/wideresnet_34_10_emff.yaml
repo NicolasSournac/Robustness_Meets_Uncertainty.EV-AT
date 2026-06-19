@@ -1,0 +1,6 @@
+name: wideresnet34_10_emff
+model:
+  _target_: ev_at.nn.wideresnet_emff.WideResNetEMFF3410
+  num_classes: ${experiment.num_classes}
+  
+  

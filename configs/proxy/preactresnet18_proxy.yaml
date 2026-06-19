@@ -1,0 +1,7 @@
+name: preactresnet18
+model:
+  _target_: ev_at.nn.preactresnet.PreActResNet18
+  num_classes: ${experiment.num_classes}
+
+  
+  

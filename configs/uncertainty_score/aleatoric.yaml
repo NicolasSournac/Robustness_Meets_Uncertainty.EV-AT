@@ -1,0 +1,3 @@
+name: aleatoric
+uncertainty_score:
+  _target_: ev_at.metrics.evidential.Aleatoric

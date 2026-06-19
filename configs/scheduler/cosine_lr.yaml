@@ -1,0 +1,9 @@
+name: cosine_lr
+scheduler:
+  _target_: torch.optim.lr_scheduler.LambdaLR
+  _partial_: true
+  lr_lambda:
+    _target_: ev_at.nn.scheduler.cosine_warmup_lambda
+    _partial_: true
+    lr_warmup: 0
+    epochs: ${experiment.max_epochs}

@@ -1,0 +1,7 @@
+model_checkpoint:
+  _target_: lightning.pytorch.callbacks.ModelCheckpoint
+  monitor: val_f1_score
+  mode: max
+  filename: "${model.name}-{epoch:02d}-{val_f1_score:.2f}"
+  save_top_k: 1
+  save_last: false

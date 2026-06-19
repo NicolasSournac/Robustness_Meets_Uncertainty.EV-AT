@@ -1,0 +1,7 @@
+attacks:
+    _target_: ev_at.attacks.AutoAttackWrapper
+    batch_size: ${dataloaders.batch_size}
+    epsilon: ${eval:128/255}
+    norm: L2
+    
+

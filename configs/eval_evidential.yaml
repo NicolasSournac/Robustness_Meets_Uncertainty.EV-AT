@@ -1,0 +1,36 @@
+defaults:
+  - model: wideresnet_34_10
+  - loss: type2_nll_loss
+  - trainer: standard
+  - uncertainty_score: total_uncertainty
+  - attacks: pgd_8_10
+  - _self_
+
+dataloaders:
+    batch_size: 128
+    num_workers: 8
+
+experiment:
+  name: ???
+  dataset: cifar10
+  num_classes: 10
+  max_epochs: 200
+  seed: 1
+  env_file: ./.env.example
+  model_type: evidential
+  activation: softplus
+  max_reg_factor: 0.2
+  reg_scheduler_gamma: 0.005
+  
+official_ckpt: false
+ckpt_choice: best
+step: test
+output_dir: ${oc.env:EXP_PATH}/${experiment.name}/${model.name}/s${experiment.seed}
+
+hydra:
+  run:
+    dir: ./logs/hydra/${experiment.name}/${model.name}/s${experiment.seed}/${step}/${now:%Y-%m-%d_%H-%M-%S}
+  sweep:
+    dir: ./logs/hydra/multirun/${experiment.name}/${model.name}/s${experiment.seed}/${step}/${now:%Y-%m-%d_%H-%M-%S}
+    subdir: ${hydra.job.num}
+  verbose: false

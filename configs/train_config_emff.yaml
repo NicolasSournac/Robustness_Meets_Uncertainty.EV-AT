@@ -1,0 +1,45 @@
+defaults:
+  - model: wideresnet_34_10_emff
+  - loss: cross_entropy
+  - optimizer: sgd_rice
+  - scheduler: multistep_lr_extended
+  - trainer: standard
+  - uncertainty_score: entropy
+  - attacks: pgd_8_10
+  - callbacks:
+    - model_checkpoint
+  - _self_
+
+dataloaders:
+    batch_size: 128
+    num_workers: 8
+    aug: basic
+
+experiment:
+  name: ???
+  dataset: cifar10
+  num_classes: 10
+  seed: 1
+  max_epochs: 200
+  env_file: ./.env.example
+  norm: Linf
+  training_pipe: trades-emff
+  model_type: emff
+  beta: 6.0
+  epsilon: ${eval:8/255}
+  num_steps: 10
+  step_size: ${eval:2/255}
+
+
+
+step: train
+output_dir: ${oc.env:EXP_PATH}/${experiment.name}/${model.name}/s${experiment.seed}
+
+hydra:
+  run:
+    dir: ./logs/hydra/${experiment.name}/${model.name}/s${experiment.seed}/${step}/${now:%Y-%m-%d_%H-%M-%S}
+  sweep:
+    dir: ./logs/hydra/multirun/${experiment.name}/${model.name}/s${experiment.seed}/${step}/${now:%Y-%m-%d_%H-%M-%S}
+    subdir: ${hydra.job.num}
+  verbose: false
+

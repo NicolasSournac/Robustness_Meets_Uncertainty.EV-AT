@@ -1,0 +1,7 @@
+loss:
+  _target_: ev_at.nn.loss.evidential.ExpectedSquaredErrorLoss
+  reg_scheduler:
+    _target_: ev_at.nn.loss.scheduler.LinearRegScheduler
+    initial_reg_factor: 0.0
+    max_reg_factor: ${experiment.max_reg_factor}
+    gamma: ${experiment.reg_scheduler_gamma}

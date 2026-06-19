@@ -1,0 +1,50 @@
+defaults:
+  - model: wideresnet_34_10
+  - proxy: wideresnet_34_10_proxy
+  - loss: cross_entropy
+  - optimizer: sgd_ikl
+  - proxy_optimizer: sgd_proxy
+  - scheduler: cosine_lr
+  - trainer: standard
+  - uncertainty_score: entropy
+  - attacks: pgd_05_10_l2
+  - callbacks:
+    - model_checkpoint
+  - _self_
+
+dataloaders:
+    batch_size: 128
+    num_workers: 8
+    aug: cutout
+
+experiment:
+  name: ???
+  dataset: cifar10
+  num_classes: 10
+  seed: 1
+  max_epochs: 200
+  env_file: ./.env.example
+  norm: L2
+  training_pipe: ikl 
+  model_type: base
+  beta: 20.0
+  epsilon: ${eval:128/255}
+  num_steps: 10
+  step_size: ${eval:15/255}
+  alpha: 4
+  gamma: 1
+  awp_warmup: 10
+  awp_gamma: 0.005
+  T: 4
+  train_budget: "high"
+
+step: train
+output_dir: ${oc.env:EXP_PATH}/${experiment.name}/${model.name}/s${experiment.seed}
+
+hydra:
+  run:
+    dir: ./logs/hydra/${experiment.name}/${model.name}/s${experiment.seed}/${step}/${now:%Y-%m-%d_%H-%M-%S}
+  sweep:
+    dir: ./logs/hydra/multirun/${experiment.name}/${model.name}/s${experiment.seed}/${step}/${now:%Y-%m-%d_%H-%M-%S}
+    subdir: ${hydra.job.num}
+  verbose: false

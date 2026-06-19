@@ -1,0 +1,14 @@
+defaults:
+  - logger:
+    - csv
+    - tensorboard
+
+trainer:
+  _target_: lightning.Trainer
+  _partial_: true
+  max_epochs: ${experiment.max_epochs}
+  accelerator: auto
+  inference_mode: false
+  enable_progress_bar: false
+  default_root_dir: ${output_dir}
+  check_val_every_n_epoch: 1

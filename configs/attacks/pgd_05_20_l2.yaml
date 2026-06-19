@@ -1,0 +1,8 @@
+attacks:
+    _target_: ev_at.attacks.pgd.PGD
+    epsilon: ${eval:128/255}
+    alpha: ${eval:15/255}
+    num_iterations: 20 
+    norm: L2
+    loss_fn: 
+      _target_: torch.nn.CrossEntropyLoss

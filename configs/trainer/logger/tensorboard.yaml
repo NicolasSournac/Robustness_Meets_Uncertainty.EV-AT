@@ -1,0 +1,4 @@
+tensorboard_logger:
+  _target_: lightning.pytorch.loggers.TensorBoardLogger
+  name: ${step}_tensorboard_logs
+  save_dir: ${output_dir}

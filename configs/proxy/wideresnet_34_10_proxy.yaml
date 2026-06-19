@@ -1,0 +1,9 @@
+name: wideresnet
+model:
+  _target_: ev_at.nn.wideresnet.WideResNet
+  depth: 34
+  num_classes: ${experiment.num_classes}
+  widen_factor: 10
+  dropRate: 0.0
+  
+  
