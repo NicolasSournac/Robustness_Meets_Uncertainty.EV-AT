@@ -66,7 +66,7 @@ TRAIL — Trusted AI Labs, Belgium
 > **EV-AT** (short for "Evidential Adversarial Training") is an adversarial training algorithm designed for trustworthy machine learning. The goal is to allow robust selective classification (jointly improving adversarial robustness and uncertainty ranking for selective classification).
 
 <p align="center">
-  <img src="assets/ev_at_framework.png" width="60%" alt="EV-AT framework: clean and adversarial samples are processed by a shared evidential classifier, followed by Dirichlet parameterization, evidential classification, and robust evidence alignment." />
+  <img src="assets/ev_at_framework.png" width="95%" alt="EV-AT framework: clean and adversarial samples are processed by a shared evidential classifier, followed by Dirichlet parameterization, evidential classification, and robust evidence alignment." />
 </p>
 
 ---
@@ -91,13 +91,13 @@ TRAIL — Trusted AI Labs, Belgium
 
 
 ## Overview
-
-Safety-critical classifiers should be able to do two things at once: **(1)** remain accurate under adversarial perturbations; and **(2)** identify predictions that should be rejected or deferred. Standard adversarial training primarily optimizes robust accuracy. This can improve the number of correct predictions under attack while still degrading the **ranking of predictive uncertainty**, leaving highly confident adversarial mistakes that are difficult to reject.
+<div align="justify">
+Safety-critical classifiers should be able to do two things at once: <strong>(1)</strong> remain accurate under adversarial perturbations; and <strong>(2)</strong> identify predictions that should be rejected or deferred. Standard adversarial training primarily optimizes robust accuracy. This can improve the number of correct predictions under attack while still degrading the **ranking of predictive uncertainty**, leaving highly confident adversarial mistakes that are difficult to reject.
 
 **Evidential Adversarial Training (EV-AT)** addresses this mismatch by representing class predictions as a Dirichlet distribution. For an input $\mathbf{x}$, the model predicts non-negative evidence $\mathbf{e}(\mathbf{x})$, which defines the concentration parameters $\boldsymbol{\alpha}(\mathbf{x}) = \mathbf{e}(\mathbf{x}) + \mathbf{1}$. EV-AT then optimizes an evidential classification objective together with **Robust Evidence Alignment (REA)** between clean and adversarial predictions in log-Dirichlet space: 
 
 $$\mathcal{L}_{\mathrm{EV\text{-}AT}} = \mathcal{L}_{\mathrm{EV}} + \beta\ \mathcal{L}_{\mathrm{REA}}.$$
-
+</div>
 This repository provides:
 
 | Capability | What is included |
@@ -618,6 +618,7 @@ The codebase separates research components behind PyTorch, Lightning, TorchMetri
 
 ### Adding a Dataset
 <details>
+  
 1. Implement a `LightningDataModule` in `src/ev_at/data/loader.py` or a dedicated module under `src/ev_at/data/`.
 2. Provide `prepare_data`, `setup`, train/validation/test dataloaders as appropriate, and `num_classes()`.
 3. Return batches compatible with the existing pipelines: `(images, labels, ...)`.
@@ -651,6 +652,7 @@ class MyDataModule(LightningDataModule):
 
 ### Adding a Model
 <details>
+  
 1. Add a standard `torch.nn.Module` under `src/ev_at/nn/`.
 2. Create `configs/model/my_model.yaml` with a Hydra `_target_`.
 3. Add a matching proxy config under `configs/proxy/` when the method uses AWP, IKL, or EV-AT.
@@ -668,6 +670,7 @@ model:
 
 ### Adding a Training Pipeline
 <details>
+  
 1. Implement a Lightning training module under `src/ev_at/pipe/training/`, preferably inheriting from `TrainingModule`.
 2. Implement `training_step` and `validation_step` and update inherited metric collections consistently.
 3. Export the module through `src/ev_at/pipe/__init__.py`.
@@ -695,6 +698,7 @@ class MyMethodTrainingModule(TrainingModule):
 
 ### Adding an Attack
 <details>
+  
 1. Inherit from `ev_at.attacks.base.AdversarialAttack`.
 2. Implement `_prepare_model` and `_forward`.
 3. Ensure generated examples remain inside the declared perturbation set and valid input range.
@@ -712,6 +716,7 @@ attacks:
 
 ### Adding a Metric
 <details>
+  
 1. Implement the metric as a `torchmetrics.Metric` under `src/ev_at/metrics/`.
 2. Define distributed-safe states with `add_state`.
 3. Keep `update` tensor-based and move expensive aggregation to `compute`.
