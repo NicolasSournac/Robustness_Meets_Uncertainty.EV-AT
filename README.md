@@ -96,7 +96,7 @@ Safety-critical classifiers should be able to do two things at once: **(1)** rem
 
 **Evidential Adversarial Training (EV-AT)** addresses this mismatch by representing class predictions as a Dirichlet distribution. For an input $\mathbf{x}$, the model predicts non-negative evidence $\mathbf{e}(\mathbf{x})$, which defines the concentration parameters $\boldsymbol{\alpha}(\mathbf{x}) = \mathbf{e}(\mathbf{x}) + \mathbf{1}$. EV-AT then optimizes an evidential classification objective together with **Robust Evidence Alignment (REA)** between clean and adversarial predictions in log-Dirichlet space: 
 
-$$\mathcal{L}_{\mathrm{EV\text{-}AT}} = \mathcal{L}_{\mathrm{EV}} + \beta\,\mathcal{L}_{\mathrm{REA}}.$$
+$$\mathcal{L}_{\mathrm{EV\text{-}AT}} = \mathcal{L}_{\mathrm{EV}} + \beta\ \mathcal{L}_{\mathrm{REA}}.$$
 
 This repository provides:
 
