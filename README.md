@@ -92,7 +92,7 @@ TRAIL — Trusted AI Labs, Belgium
 
 ## Overview
 <div align="justify">
-Safety-critical classifiers should be able to do two things at once: <strong>(1)</strong> remain accurate under adversarial perturbations; and <strong>(2)</strong> identify predictions that should be rejected or deferred. Standard adversarial training primarily optimizes robust accuracy. This can improve the number of correct predictions under attack while still degrading the **ranking of predictive uncertainty**, leaving highly confident adversarial mistakes that are difficult to reject.
+Safety-critical classifiers should be able to do two things at once: <strong>(1)</strong> remain accurate under adversarial perturbations; and <strong>(2)</strong> identify predictions that should be rejected or deferred. Standard adversarial training primarily optimizes robust accuracy. This can improve the number of correct predictions under attack while still degrading the <strong>ranking of predictive uncertainty</strong>, leaving highly confident adversarial mistakes that are difficult to reject.
 
 **Evidential Adversarial Training (EV-AT)** addresses this mismatch by representing class predictions as a Dirichlet distribution. For an input $\mathbf{x}$, the model predicts non-negative evidence $\mathbf{e}(\mathbf{x})$, which defines the concentration parameters $\boldsymbol{\alpha}(\mathbf{x}) = \mathbf{e}(\mathbf{x}) + \mathbf{1}$. EV-AT then optimizes an evidential classification objective together with **Robust Evidence Alignment (REA)** between clean and adversarial predictions in log-Dirichlet space: 
 
