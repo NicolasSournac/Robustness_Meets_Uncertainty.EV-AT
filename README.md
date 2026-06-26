@@ -87,14 +87,14 @@ TRAIL — Trusted AI Labs, Belgium
 ## News
 
 - **June 2026:** EV-AT was accepted to ECCV 2026.
-- **Month 2026:** Code, configurations, and reproducibility benchmark released.
+- **July 2026:** Code, configurations, and reproducibility benchmark released.
 
 
 ## Overview
 
 Safety-critical classifiers should be able to do two things at once: **(1)** remain accurate under adversarial perturbations; and **(2)** identify predictions that should be rejected or deferred. Standard adversarial training primarily optimizes robust accuracy. This can improve the number of correct predictions under attack while still degrading the **ranking of predictive uncertainty**, leaving highly confident adversarial mistakes that are difficult to reject.
 
-**Evidential Adversarial Training (EV-AT)** addresses this mismatch by representing class predictions as a Dirichlet distribution. For an input \(\mathbf{x}\), the model predicts non-negative evidence \(\mathbf{e}(\mathbf{x})\), which defines the concentration parameters $\boldsymbol{\alpha}(\mathbf{x}) = \mathbf{e}(\mathbf{x}) + \mathbf{1}$. EV-AT then optimizes an evidential classification objective together with **Robust Evidence Alignment (REA)** between clean and adversarial predictions in log-Dirichlet space: $ \mathcal{L}_{\mathrm{EV\text{-}AT}} = \mathcal{L}_{\mathrm{EV}} + \beta\,\mathcal{L}_{\mathrm{REA}}$.
+**Evidential Adversarial Training (EV-AT)** addresses this mismatch by representing class predictions as a Dirichlet distribution. For an input $\mathbf{x}$, the model predicts non-negative evidence $\mathbf{e}(\mathbf{x})$, which defines the concentration parameters $\boldsymbol{\alpha}(\mathbf{x}) = \mathbf{e}(\mathbf{x}) + \mathbf{1}$. EV-AT then optimizes an evidential classification objective together with **Robust Evidence Alignment (REA)** between clean and adversarial predictions in log-Dirichlet space: $\mathcal{L}_{\mathrm{EV\text{-}AT}} = \mathcal{L}_{\mathrm{EV}} + \beta\,\mathcal{L}_{\mathrm{REA}}$.
 
 This repository provides:
 
@@ -194,7 +194,7 @@ python -c "import torch, lightning, hydra; print(torch.__version__)"
 
 ### Environment Setup
 
-The code resolves storage paths through environment variables. Edit `.env` as needed:
+The code resolves storage paths through environment variables. Edit `.env.example` as needed:
 
 ```dotenv
 DATA_PATH=./data/
