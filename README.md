@@ -66,13 +66,14 @@ TRAIL — Trusted AI Labs, Belgium
 > **EV-AT** (short for "Evidential Adversarial Training") is an adversarial training algorithm designed for trustworthy machine learning. The goal is to allow robust selective classification (jointly improving adversarial robustness and uncertainty ranking for selective classification).
 
 <p align="center">
-  <img src="assets/ev_at_framework.png" width="95%" alt="EV-AT framework: clean and adversarial samples are processed by a shared evidential classifier, followed by Dirichlet parameterization, evidential classification, and robust evidence alignment." />
+  <img src="assets/ev_at_framework.png" width="100%" alt="EV-AT framework: clean and adversarial samples are processed by a shared evidential classifier, followed by Dirichlet parameterization, evidential classification, and robust evidence alignment." />
 </p>
 
 ---
 
 ## Highlights
-
+<div align="justify">
+  
 - **A unified evaluation benchmark** for predictive accuracy, adversarial
   robustness, and uncertainty quality across datasets, architectures,
   augmentation strategies, and threat models.
@@ -83,11 +84,12 @@ TRAIL — Trusted AI Labs, Belgium
 
 - **Comprehensive robustness evaluation** on clean inputs, AutoAttack, PGD,
   common corruptions, and both $\ell_\infty$ and $\ell_2$ threat models.
+</div>
 
 ## News
 
-- **June 2026:** EV-AT was accepted to ECCV 2026.
 - **July 2026:** Code, configurations, and reproducibility benchmark released.
+- **June 2026:** EV-AT was accepted to ECCV 2026.
 
 
 ## Overview
@@ -111,12 +113,14 @@ This repository provides:
 ---
 ## Main Results
 
-EV-AT achieves the strongest joint **robustness–uncertainty trade-off** among
-the evaluated methods on **CIFAR-10 with WideResNet-34-10**.
+<div align="justify">
+EV-AT achieves the strongest joint <strong>robustness–uncertainty trade-off</strong> among
+the evaluated methods on <strong>CIFAR-10 with WideResNet-34-10</strong>.
 
 Results are averaged over four data-augmentation strategies (Basic, Cutout,
 AutoAugment, and AugMix) and three random seeds. Adversarial robustness is
 evaluated with AutoAttack under the $\ell_\infty$ threat model with $\varepsilon = 8/255$.
+</div>
 
 <div align="center">
 
@@ -273,7 +277,8 @@ bash run_single_job.sh <MODEL> <DATASET> <AUGMENTATION> <PIPELINE> <SEED>
 Use the same experiment name, model, and seed as the training run so the evaluator can locate the checkpoint.
 
 **AutoAttack**
-
+<details>
+  
 ```bash
 python src/eval.py --config-name eval_evidential \
   experiment.env_file=.env \
@@ -286,8 +291,10 @@ python src/eval.py --config-name eval_evidential \
   ckpt_choice=best \
   step=test
 ```
+</details>
 
 **PGD-100**
+<details>
 
 ```bash
 python src/eval.py --config-name eval_evidential \
@@ -301,8 +308,10 @@ python src/eval.py --config-name eval_evidential \
   ckpt_choice=best \
   step=test
 ```
+</details>
 
 **Common corruptions**
+<details>
 
 ```bash
 python src/eval.py --config-name eval_evidential \
@@ -316,6 +325,7 @@ python src/eval.py --config-name eval_evidential \
   ckpt_choice=best \
   step=test
 ```
+</details>
 
 ### L-infinity and L2 Threat Models
 
@@ -334,7 +344,7 @@ bash run_single_l2_job.sh wideresnet_34_10 cifar10 augmix evat 0
 The $\ell_2$ launcher trains the selected method and evaluates it with AutoAttack, PGD-20, PGD-100, and common corruptions.
 
 ### Outputs and Checkpoints
-
+<details>
 A run is organized by experiment, model, and seed:
 
 ```text
@@ -352,6 +362,7 @@ out/
             │   └── ...
             └── test_tensorboard_logs/
 ```
+</details>
 
 Hydra stores the fully resolved execution context and command logs separately:
 
@@ -367,6 +378,7 @@ logs/hydra/<experiment>/<model>/s<seed>/<step>/<timestamp>/
 ## Reproducing the Benchmark
 
 ### Experimental Protocol
+<details>
 
 | Axis | Standardized setting |
 |:--|:--|
@@ -383,7 +395,10 @@ logs/hydra/<experiment>/<model>/s<seed>/<step>/<timestamp>/
 | Selective metrics | AURC, AUGRC, AUROC, retention and risk–coverage behavior |
 | Primary aggregate | Mean of clean and AutoAttack metrics |
 
+</details>
+
 ### Reproduction Matrix
+<details>
 
 | Paper setting | Command |
 |:--|:--|
@@ -395,6 +410,8 @@ logs/hydra/<experiment>/<model>/s<seed>/<step>/<timestamp>/
 | One custom method/augmentation/seed | `bash run_single_job.sh <MODEL> <DATASET> <AUG> <PIPE> <SEED>` |
 
 Run commands from the `jobs/` directory.
+
+</details>
 
 ### Full Benchmark
 
@@ -481,6 +498,7 @@ configs/
 > A training **method** is selected through `--config-name`. Components such as the model, attack, loss, and uncertainty score are selected through Hydra configuration groups.
 
 ### Hydra Overrides
+<details>
 
 Hydra uses `key=value` syntax:
 
@@ -536,7 +554,10 @@ python src/train.py --config-name train_config_evat --multirun \
 
 For exact paper reproduction, prefer the benchmark launchers because they preserve the expected training and evaluation order.
 
+</details>
+
 ### Available Datasets
+<details>
 
 | Dataset | Classes | Training | Evaluation | Override |
 |:--|--:|:--:|:--:|:--|
@@ -554,10 +575,14 @@ Available training augmentations:
 | AutoAugment | `dataloaders.aug=autoaug` | Learned CIFAR augmentation policy. |
 | AugMix | `dataloaders.aug=augmix` | Stochastic mixtures designed for robustness under shift. |
 
-> [!CAUTION]
-> The current configuration API requires `experiment.dataset` and `experiment.num_classes` to be changed together.
+<blockquote>
+⚠️ <strong>Caution:</strong> The current configuration API requires <code>experiment.dataset</code> and <code>experiment.num_classes</code> to be changed together.
+</blockquote>
+
+</details>
 
 ### Available Models
+<details>
 
 | Architecture | Model config | Proxy config | Role |
 |:--|:--|:--|:--|
@@ -567,7 +592,10 @@ Available training augmentations:
 
 Methods using AWP, IKL, or EV-AT require a proxy configuration that matches the selected backbone.
 
+</details>
+
 ### Available Methods
+<details>
 
 | Method | $\ell_\infty$ training config | $\ell_2$ training config | Evaluation config |
 |:--|:--|:--|:--|
@@ -588,8 +616,10 @@ python src/train.py --config-name train_config_evat ...
 # L2 EV-AT
 python src/train.py --config-name train_config_evat_l2 ...
 ```
+</details>
 
 ### Available Attacks
+<details>
 
 | Attack | Threat model | Budget | Iterations | Config |
 |:--|:--|:--|--:|:--|
@@ -609,6 +639,8 @@ attacks=pgd_05_100_l2
 ```
 
 Other composable groups include evidential losses (`expected_nll_loss`, `expected_squared_loss`, `type2_nll_loss`), standard cross-entropy, and uncertainty scores (`entropy`, `aleatoric`, `epistemic`, `total_uncertainty`).
+
+</details>
 
 ---
 
