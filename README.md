@@ -20,7 +20,7 @@ TRAIL — Trusted AI Labs, Belgium
   <a href="https://arxiv.org/abs/<ARXIV_ID>">
     <img src="https://img.shields.io/badge/Paper-arXiv-b31b1b?style=flat-square&logo=arxiv&logoColor=white" alt="arXiv paper">
   </a>
-  <a href="<PROJECT_PAGE_URL>">
+  <a href="https://nicolassournac.github.io/Robustness_Meets_Uncertainty/">
     <img src="https://img.shields.io/badge/Project-Page-4c8bf5?style=flat-square&logo=googlechrome&logoColor=white" alt="Project page">
   </a>
   <a href="https://github.com/NicolasSournac/Robustness_Meets_Uncertainty.EV-AT">
