@@ -26,6 +26,12 @@ TRAIL — Trusted AI Labs, Belgium
   <a href="https://github.com/NicolasSournac/Robustness_Meets_Uncertainty.EV-AT">
     <img src="https://img.shields.io/badge/Code-Official-2ea44f?style=flat-square&logo=github&logoColor=white" alt="Official code">
   </a>
+  <a href="https://www.youtube.com/watch?v=sLWNdSY00Dk">
+    <img src="https://img.shields.io/badge/Video-YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white" alt="YouTube video">
+  </a>
+  <a href="https://eccv.ecva.net/media/PosterPDFs/ECCV%202026/5235.png?t=1788101785.1764011">
+    <img src="https://img.shields.io/badge/Poster-PDF-F9A825?style=flat-square&logo=googledocs&logoColor=white" alt="Poster">
+  </a>
   <a href="#citation">
     <img src="https://img.shields.io/badge/Conference-ECCV%202026-6f42c1?style=flat-square" alt="ECCV 2026">
   </a>
